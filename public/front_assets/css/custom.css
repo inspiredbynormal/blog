@@ -1,0 +1,76 @@
+header {
+    box-shadow: 1px 1px 5px #dadada;
+}
+
+.entry-posts .entry-post .entry-thumbnail {
+    margin-bottom: 40px;
+    height: 170px !important;
+}
+
+.entry-posts .entry-post .entry-thumbnail img {
+    object-fit: cover;
+    height: 100%;
+}
+
+.entry-posts .entry-post .title {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+}
+
+.btn-custom {
+    font-size: 14px;
+    font-weight: 500;
+    background-color: #2f2f2f;
+    color: #fff;
+    line-height: 1;
+    text-transform: uppercase;
+    padding: 15px 50px;
+    border-radius: 23px;
+    border: 1px solid #2f2f2f;
+    -webkit-transition: all 0.3s ease-out 0s;
+    -o-transition: all 0.3s ease-out 0s;
+    transition: all 0.3s ease-out 0s;
+}
+
+.btn-custom:hover {
+    background-color: #fff;
+    color: #000;
+}
+
+.category-image {
+    height: 250px;
+    object-fit: contain;
+    border: 1px solid #ececec;
+    padding: 15px;
+}
+
+.post-area-list {
+    margin-top: 0px !important;
+}
+
+.footer-copyright-section {
+    padding: 20px 0px;
+    border-top: 1px solid #ececec;
+}
+
+footer .footer-widgets-area {
+    padding-top: 70px !important;
+    padding-bottom: 30px !important;
+}
+
+.mt-20 {
+    margin-top: 20px;
+}
+
+.post-area-list {
+    border-bottom: 0px;
+}
+.post-area {
+    border-bottom: 0px;
+}
+
+.comment-author>img {
+    border-radius: 50px !important;
+}
