@@ -1,0 +1,22 @@
+.dataTables_filter {
+    text-align: end;
+}
+
+.dataTables_paginate .pagination {
+    justify-content: flex-end;
+}
+
+.list-header {
+    display: flex;
+    justify-content: space-between;
+}
+
+.list-image {
+    width: 40px;
+}
+
+.action_btn_box {
+    display: flex;
+    justify-content: space-evenly;
+}
+
