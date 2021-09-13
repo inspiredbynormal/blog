@@ -2,355 +2,339 @@
 
 @section('content')
 
-<!-- Start Banner Area -->
-<div class="banner banner-single-post post-formate post-standard alignwide">
+<!-- Blog Details Wrapper Start -->
+<div class="blog-details-wrapper section-space--ptb_80">
     <div class="container">
         <div class="row">
-            <div class="col-lg-12">
-                <!-- Start Single Slide  -->
-                <div class="content-block">
-                    <!-- Start Post Thumbnail  -->
-                    <div class="post-thumbnail">
-                        <img src="{{asset('storage/media/post/'. $post->post_image)}}" alt="Post Images">
+            <div class="col-lg-9 col-12">
+                <!-- blog details Post Start -->
+                <div class="blog-details-post-wrap">
+                    <div class="blog-details-thum">
+                        <img class="w-100" src="{{asset('storage/media/post/'. $post->post_image)}}" alt="">
                     </div>
-                    <!-- End Post Thumbnail  -->
-                    <!-- Start Post Content  -->
-                    <div class="post-content">
-                        <div class="post-cat">
-                            <div class="post-cat-list">
-                                <a class="hover-flip-item-wrapper" href="{{route('front.posts-by-category', $post->category->category_slug)}}">
-                                    <span class="hover-flip-item">
-                                        <span data-text="{{$post->category->category_name}}">{{$post->category->category_name}}</span>
+                    <div class="blog-details-post-content">
+                        <div class="blog-details-meta-box">
+                            <div class="post-meta-left-side mb-2">
+                                <div class="trending-blog-post-category">
+                                    <a href="{{route('front.posts-by-category', $post->category->category_slug)}}">{{$post->category->category_name}}</a>
+                                </div>
+                                <div class="following-blog-post-author">
+                                    By <a href="#">{{$post->user->name}}</a>
+                                </div>
+                            </div>
+
+                            <div class="post-mid-side mb-2">
+                                <span class="post-meta-left-side">
+                                    <span class="post-date">
+                                        <i class="icofont-ui-calendar"></i>
+                                        <a href="#">{{ Carbon\Carbon::parse($post->created_at)->toDayDateTimeString() }}</a>
                                     </span>
-                                </a>
+                                </span>
+                                <!-- <span>10 min read</span> -->
+                            </div>
+
+                            <div class="post-meta-right-side mb-2">
+                                <a href="#"><img src="assets/images/icons/small-bookmark.png" alt="" /></a>
+                                <a href="#"><img src="assets/images/icons/heart.png" alt="" /></a>
                             </div>
                         </div>
-                        <h1 class="title">{{$post->post_title}}</h1>
-                        <!-- Post Meta  -->
-                        <div class="post-meta-wrapper">
-                            <div class="post-meta">
-                                <div class="post-author-avatar border-rounded">
-                                    <img src="{{asset('storage/media/user/'.$post->user->avatar)}}" alt="Author Images">
+                        <h3 class="following-blog-post-title">
+                            <a href="#">{{$post->post_title}}
+                            </a>
+                        </h3>
+
+                        <div class="post-details-text">
+
+
+                            <blockquote class="blockquote-box">
+                                <p class="blockquote-text">{{$post->post_short_desc}}</p>
+                            </blockquote>
+
+                            <p>
+                                {!! nl2br($post->post_desc) !!}
+                            </p>
+
+
+
+                            <div class="blog-details-tag-and-share-area">
+                                <div class="post-tag">
+                                    <a href="#" class="btn-medium fashion">Fashion</a>
+                                    <a href="#" class="btn-medium health">Health</a>
+                                    <a href="#" class="btn-medium travel">Travel</a>
                                 </div>
-                                <div class="content">
-                                    <h6 class="post-author-name">
-                                        <a class="hover-flip-item-wrapper" href="#">
-                                            <span class="hover-flip-item">
-                                                <span data-text="{{$post->user->name}}">{{$post->user->name}}</span>
-                                            </span>
-                                        </a>
-                                    </h6>
-                                    <ul class="post-meta-list">
-                                        <li>{{ Carbon\Carbon::parse($post->created_at)->toDayDateTimeString() }}</li>
-                                        <!-- <li>300k Views</li> -->
-                                    </ul>
-                                </div>
+                                <ul class="social-share-area">
+                                    <li><a href="#"><i class="icofont-facebook"></i></a></li>
+                                    <li><a href="#"><i class="icofont-skype"></i></a></li>
+                                    <li><a href="#"><i class="icofont-twitter"></i></a></li>
+                                    <li><a href="#"><i class="icofont-linkedin"></i></a></li>
+                                </ul>
                             </div>
-                            <ul class="social-share-transparent justify-content-end">
-                                <li><a href="#"><i class="fab fa-facebook-f"></i></a></li>
-                                <li><a href="#"><i class="fab fa-instagram"></i></a></li>
-                                <li><a href="#"><i class="fab fa-twitter"></i></a></li>
-                                <li><a href="#"><i class="fas fa-link"></i></a></li>
-                            </ul>
+
                         </div>
-                    </div>
-                    <!-- End Post Content  -->
-                </div>
-                <!-- End Single Slide  -->
-            </div>
-        </div>
-    </div>
-</div>
-<!-- End Banner Area -->
 
-<!-- Start Post Single Wrapper  -->
-<div class="post-single-wrapper axil-section-gap bg-color-white">
-    <div class="container">
-        <div class="row">
-            <div class="col-lg-8">
-                <div class="axil-post-details">
-                    <p class="has-medium-font-size">{{$post->post_short_desc}}</p>
-
-                    <p>{!! nl2br($post->post_desc) !!}</p>
-
-                    <div class="tagcloud">
-                        <a href="#">Design</a>
-                        <a href="#">Life Style</a>
-                        <a href="#">Web Design</a>
-                        <a href="#">Development</a>
-                        <a href="#">Design</a>
-                        <a href="#">Life Style</a>
-                    </div>
-
-
-                    <!-- Start Author  -->
-                    <div class="about-author">
-                        <div class="media">
-                            <div class="thumbnail">
-                                <a href="#">
-                                    <img src="{{($post->user->avatar != NULL)? asset('storage/media/user/'. $post->user->avatar) : asset('front_assets/img/no_image_available.png')}}" alt="Author Images">
-                                </a>
-                            </div>
-                            <div class="media-body">
-                                <div class="author-info">
-                                    <h5 class="title">
-                                        <a class="hover-flip-item-wrapper" href="#">
-                                            <span class="hover-flip-item">
-                                                <span data-text="{{$post->user->name}}">{{$post->user->name}}</span>
-                                            </span>
-                                        </a>
-                                    </h5>
+                        <!-- Related Post Area Start -->
+                        <div class="related-post-area section-space--pt_60">
+                            <div class="row">
+                                <div class="col-lg-8 col-7">
+                                    <div class="section-title mb-30">
+                                        <h3 class="title">Related Post</h3>
+                                    </div>
                                 </div>
-
+                                <div class="col-lg-4 col-5">
+                                    <div class="related-post-slider-navigation text-end">
+                                        <div class="related-post-button-prev navigation-button"><i class="icofont-long-arrow-left"></i></div>
+                                        <div class="related-post-button-next navigation-button"><i class="icofont-long-arrow-right"></i></div>
+                                    </div>
+                                </div>
                             </div>
-                        </div>
-                    </div>
-                    <!-- End Author  -->
-
-                    <!-- Start Comment Form Area  -->
-                    <div class="axil-comment-area">
-                        <!-- Start Comment Area  -->
-                        <div class="axil-comment-area">
-                            <h4 class="title">{{count($post->comments)}} Comments</h4>
-                            <ul class="comment-list">
-                                @forelse($post->comments as $comment)
-                                <!-- Start Single Comment  -->
-                                <li class="comment">
-                                    <div class="comment-body">
-                                        <div class="single-comment">
-                                            <div class="comment-img">
-                                                <img src="{{($comment->user->avatar != NULL)? asset('storage/media/user/'. $comment->user->avatar) : asset('front_assets/img/no_image_available.png')}}" alt="Author Images">
+                            <!-- Swiper -->
+                            <div class="swiper-container related-post-slider-active">
+                                <div class="swiper-wrapper">
+                                    @forelse($related_posts as $post)
+                                    <div class="swiper-slide">
+                                        <!-- Single Following Post Start -->
+                                        <div class="single-related-post">
+                                            <div class="related-post-thum">
+                                                <img src="{{asset('storage/media/post/'. $post->post_image)}}" alt="">
                                             </div>
-                                            <div class="comment-inner">
-                                                <h6 class="commenter">
-                                                    <a class="hover-flip-item-wrapper" href="#">
-                                                        <span class="hover-flip-item">
-                                                            <span data-text="{{$comment->user->name}}">{{$comment->user->name}}</span>
+                                            <div class="following-post-content">
+                                                <div class="following-blog-post-top">
+                                                    <div class="trending-blog-post-category">
+                                                        <a href="{{route('front.posts-by-category', $post->category->category_slug)}}">{{$post->category->category_name}}</a>
+                                                    </div>
+                                                    <div class="following-blog-post-author">
+                                                        By <a href="#">{{$post->user->name}}</a>
+                                                    </div>
+                                                </div>
+                                                <h5 class="following-blog-post-title">
+                                                    <a href="{{route('front.blog-details', [$post->post_slug])}}">{{$post->post_title}}</a>
+                                                </h5>
+                                                <div class="following-blog-post-meta">
+                                                    <div class="post-meta-left-side">
+                                                        <span class="post-date">
+                                                            <i class="icofont-ui-calendar"></i>
+                                                            <a href="#">{{ Carbon\Carbon::parse($post->created_at)->toDayDateTimeString() }}</a>
                                                         </span>
-                                                    </a>
-                                                </h6>
-                                                <div class="comment-meta">
-                                                    <div class="time-spent">{{ Carbon\Carbon::parse($comment->created_at)->toDayDateTimeString() }}</div>
-
-                                                </div>
-                                                <div class="comment-text">
-                                                    <p class="b2">{{$comment->comment_msg}}</p>
+                                                        <!-- <span>10 min read</span> -->
+                                                    </div>
+                                                    <div class="post-meta-right-side">
+                                                        <a href="#"><img src="assets/images/icons/small-bookmark.png" alt=""></a>
+                                                        <a href="#"><img src="assets/images/icons/heart.png" alt=""></a>
+                                                    </div>
                                                 </div>
                                             </div>
-                                        </div>
+                                        </div><!-- Single Following Post End -->
                                     </div>
-
-                                </li>
-                                <!-- End Single Comment  -->
-                                @empty
-
-                                @endforelse
-                            </ul>
+                                    @empty
+                                    <h6 class="text-left">No related post found</h6>
+                                    @endforelse
+                                </div>
+                            </div>
                         </div>
-                        <!-- End Comment Area  -->
+                        <!-- Related Post Area End -->
 
-                        <!-- Start Comment Respond  -->
-                        <div class="comment-respond">
-                            <h4 class="title">Post a comment</h4>
-
+                        <!-- Comment Area Start -->
+                        <div class="comment-area section-space--pt_60">
+                            <div class="section-title">
+                                <h3 class="title">Leave a comment</h3>
+                            </div>
+                            <div id="comment_response"></div>
                             @if(session('LOGIN') == true)
-                            <form action="#">
-                                <p class="comment-notes"><span id="email-notes">Your email address will not be
-                                        published.</span> Required fields are marked <span class="required">*</span></p>
-                                <div class="row row--10">
-                                    <div class="col-lg-4 col-md-4 col-12">
-                                        <div class="form-group">
-                                            <label>Your Name</label>
-                                            <input id="name" type="text">
+                            <form action="#" class="comment-form-area" id="commentFrmSubmit">
+                                <input type="hidden" name="post_id" value="{{$post->id}}">
+                                @csrf
+                                <div class="row">
+                                    @if(session('LOGIN') == true && session('ROLE') == 'admin')
+                                    @php
+                                    $user = userDetails(session('ADMIN_ID'));
+                                    @endphp
+                                    <div class="col-lg-6">
+                                        <div class="single-input">
+                                            <input name="name" type="text" placeholder="Enter your name" value="{{$user->name}}" required disabled>
                                         </div>
                                     </div>
-                                    <div class="col-lg-4 col-md-4 col-12">
-                                        <div class="form-group">
-                                            <label>Your Email</label>
-                                            <input id="email" type="email">
+                                    <div class="col-lg-6">
+                                        <div class="single-input">
+                                            <input name="email" type="email" placeholder="Your Email" value="{{$user->email}}" required disabled>
                                         </div>
                                     </div>
-                                    <div class="col-lg-4 col-md-4 col-12">
-                                        <div class="form-group">
-                                            <label>Your Website</label>
-                                            <input id="website" type="text">
+                                    @elseif(session('LOGIN') == true && session('ROLE') == 'editor')
+                                    @php
+                                    $user = userDetails(session('EDITOR_ID'))
+                                    @endphp
+
+                                    <div class="col-lg-6">
+                                        <div class="single-input">
+                                            <input type="text" name="name" placeholder="Enter your name" value="{{$user->name}}" required disabled>
                                         </div>
                                     </div>
-                                    <div class="col-12">
-                                        <div class="form-group">
-                                            <label>Leave a Reply</label>
-                                            <textarea name="message"></textarea>
+                                    <div class="col-lg-6">
+                                        <div class="single-input">
+                                            <input type="email" name="email" placeholder="Your Email" value="{{$user->email}}" required disabled>
+                                        </div>
+                                    </div>
+                                    @endif
+                                    <div class="col-lg-12">
+                                        <div class="single-input">
+                                            <textarea name="comment_msg" placeholder="Massage"></textarea>
                                         </div>
                                     </div>
                                     <div class="col-lg-12">
-                                        <p class="comment-form-cookies-consent">
-                                            <input id="wp-comment-cookies-consent" name="wp-comment-cookies-consent" type="checkbox" value="yes">
-                                            <label for="wp-comment-cookies-consent">Save my name, email, and
-                                                website in this browser for the next time I comment.</label>
-                                        </p>
-                                    </div>
-                                    <div class="col-lg-12">
-                                        <div class="form-submit cerchio">
-                                            <input name="submit" type="submit" id="submit" class="axil-button button-rounded" value="Post Comment">
+                                        <div class="submit-button text-center">
+                                            <button class="btn-large btn-primary" type="submit"> Submit Now <i class="icofont-long-arrow-right"></i></button>
                                         </div>
                                     </div>
                                 </div>
                             </form>
                             @else
-                            <div class="add-comment-button cerchio">
-                                <a class="axil-button button-rounded" href="{{route('user-login')}}" tabindex="0"><span>Please login to write your comment</span></a>
-                            </div>
+                            <p><a class="mt-3 p-3 btn-primary" href="{{route('user-login')}}">Please login to write your comment</a></p>
                             @endif
-                        </div>
-                        <!-- End Comment Respond  -->
 
+                        </div>
+                        <!-- Comment Area End -->
 
 
                     </div>
-                    <!-- End Comment Form Area  -->
-
-
                 </div>
+                <!-- blog details Post End -->
             </div>
-            <div class="col-lg-4">
-                <!-- Start Sidebar Area  -->
-                <div class="sidebar-inner">
-                    <!-- Start Single Widget  -->
-                    <div class="axil-single-widget widget widget_categories mb--30">
-                        <ul>
-                            @forelse($categories as $category)
-                            <li class="cat-item">
-                                <a href="{{route('front.posts-by-category', $category->category_slug)}}" class="inner">
-                                    <div class="thumbnail">
-                                        <img src="{{asset('storage/media/category/'. $category->category_image)}}" alt="">
-                                    </div>
-                                    <div class="content">
-                                        <h5 class="title">{{$category->category_name}}</h5>
-                                    </div>
-                                </a>
-                            </li>
-                            @empty
-                            @endforelse
-
-                        </ul>
+            <div class="col-lg-3 col-12">
+                <div class="following-author-area">
+                    <div class="author-image">
+                        <img src="{{asset('storage/media/user/'. $post->user->avatar)}}" alt="">
                     </div>
-                    <!-- End Single Widget  -->
+                    <div class="author-title">
+                        <h4><a href="#">{{$post->user->name}}</a></h4>
+                    </div>
+                    <div class="author-details">
+                        <p>Lorem psum has been industry
+                            standard dumy text since the when
+                            and scrambled make specimen
+                            book has survived.</p>
 
-
-                    <!-- Start Single Widget  -->
-                    <div class="axil-single-widget widget widget_postlist mb--30">
-                        <h5 class="widget-title">Related Posts</h5>
-                        <!-- Start Post List  -->
-                        <div class="post-medium-block">
-                            @forelse($related_posts as $post)
-                            <!-- Start Single Post  -->
-                            <div class="content-block post-medium mb--20">
-                                <div class="post-thumbnail">
-                                    <a href="{{route('front.blog-details', [$post->post_slug])}}">
-                                        <img src="{{asset('storage/media/post/'. $post->post_image)}}" alt="Post Images">
-                                    </a>
-                                </div>
-                                <div class="post-content">
-                                    <h6 class="title"><a href="{{route('front.blog-details', [$post->post_slug])}}">{{$post->post_title}}</a></h6>
-                                    <div class="post-meta">
-                                        <ul class="post-meta-list">
-                                            <li>{{ Carbon\Carbon::parse($post->created_at)->toDayDateTimeString() }}</li>
-                                            <!-- <li>300k Views</li> -->
-                                        </ul>
-                                    </div>
-                                </div>
-                            </div>
-                            <!-- End Single Post  -->
-                            @empty
-                            <h6 class="text-left">No related post found</h6>
-                            @endforelse
+                        <div class="author-post-share">
+                            <ul class="social-share-area">
+                                <li><a href="#"><i class="icofont-facebook"></i></a></li>
+                                <li><a href="#"><i class="icofont-skype"></i></a></li>
+                                <li><a href="#"><i class="icofont-twitter"></i></a></li>
+                                <li><a href="#"><i class="icofont-linkedin"></i></a></li>
+                            </ul>
                         </div>
-                        <!-- End Post List  -->
 
                     </div>
-                    <!-- End Single Widget  -->
-
-                    <!-- Start Single Widget  -->
-                    <div class="axil-single-widget widget widget_newsletter mb--30">
-                        <!-- Start Post List  -->
-                        <div class="newsletter-inner text-center">
-                            <h4 class="title mb--15">Never Miss A Post!</h4>
-                            <p class="b2 mb--30">Sign up for free and be the first to <br /> get notified about updates.</p>
-                            <form action="#">
-                                <div class="form-group">
-                                    <input type="text" placeholder="Enter Your Email ">
-                                </div>
-                                <div class="form-submit">
-                                    <button class="cerchio axil-button button-rounded"><span>Subscribe</span></button>
-                                </div>
-                            </form>
-                        </div>
-                        <!-- End Post List  -->
-                    </div>
-                    <!-- End Single Widget  -->
-
-
-                    <!-- Start Single Widget  -->
-                    <div class="axil-single-widget widget widget_tag_cloud mb--30">
-                        <h5 class="widget-title">Archives</h5>
-                        <!-- Start Post List  -->
-                        <div class="tagcloud">
-                            <a href="#">Design</a>
-                            <a href="#">Development</a>
-                            <a href="#">Graphic</a>
-                            <a href="#">UI/UX Design</a>
-                            <a href="#">HTML</a>
-                        </div>
-                        <!-- End Post List  -->
-                    </div>
-                    <!-- End Single Widget  -->
-                    <!-- Start Single Widget  -->
-                    <div class="axil-single-widget widget widget_instagram mb--30">
-                        <h5 class="widget-title">Instagram</h5>
-                        <!-- Start Post List  -->
-                        <ul class="instagram-post-list-wrapper">
-                            <li class="instagram-post-list">
-                                <a href="#">
-                                    <img src="{{asset('front_assets/images/small-images/instagram-01.jpg')}}" alt="Instagram Images">
-                                </a>
-                            </li>
-                            <li class="instagram-post-list">
-                                <a href="#">
-                                    <img src="{{asset('front_assets/images/small-images/instagram-02.jpg')}}" alt="Instagram Images">
-                                </a>
-                            </li>
-                            <li class="instagram-post-list">
-                                <a href="#">
-                                    <img src="{{asset('front_assets/images/small-images/instagram-03.jpg')}}" alt="Instagram Images">
-                                </a>
-                            </li>
-                            <li class="instagram-post-list">
-                                <a href="#">
-                                    <img src="{{asset('front_assets/images/small-images/instagram-04.jpg')}}" alt="Instagram Images">
-                                </a>
-                            </li>
-                            <li class="instagram-post-list">
-                                <a href="#">
-                                    <img src="{{asset('front_assets/images/small-images/instagram-05.jpg')}}" alt="Instagram Images">
-                                </a>
-                            </li>
-                            <li class="instagram-post-list">
-                                <a href="#">
-                                    <img src="{{asset('front_assets/images/small-images/instagram-06.jpg')}}" alt="Instagram Images">
-                                </a>
-                            </li>
-                        </ul>
-                        <!-- End Post List  -->
-                    </div>
-                    <!-- End Single Widget  -->
                 </div>
-                <!-- End Sidebar Area  -->
+                <!-- Hero Category Area Start -->
+                <div class="blog-details-category-area mt-5">
+                    @forelse($categories as $category)
+                    <a href="{{route('front.posts-by-category', $category->category_slug)}}" class="single-hero-category-item">
+                        <img src="{{asset('storage/media/category/'. $category->category_image)}}" alt="">
+                        <div class="hero-category-inner-box">
+                            <h3 class="title">{{$category->category_name}}</h3>
+                            <i class="icon icofont-long-arrow-right"></i>
+                        </div>
+                    </a>
+                    @empty
+                    @endforelse
+                </div><!-- Hero Category Area End -->
+
+                <!-- Stay In Touch Area Start -->
+                <div class="stay-in-touch-area mt-5">
+                    <div class="section-title">
+                        <h3>Stay In Touch</h3>
+                    </div>
+                    <div class="stay-in-touch-box">
+                        <div class="single-touch-col">
+                            <a href="#!" class="single-touch facebook">
+                                <div class="touch-socail-icon">
+                                    <i class="icofont-facebook"></i>
+                                </div>
+                                <p class="touch-title">5,685K</p>
+                            </a>
+                        </div>
+                        <div class="single-touch-col">
+                            <a href="#!" class="single-touch twitter">
+                                <div class="touch-socail-icon">
+                                    <i class="icofont-twitter"></i>
+                                </div>
+                                <p class="touch-title">6,97K+</p>
+                            </a>
+                        </div>
+                        <div class="single-touch-col">
+                            <a href="#!" class="single-touch behance">
+                                <div class="touch-socail-icon">
+                                    <i class="icofont-behance"></i>
+                                </div>
+                                <p class="touch-title">6,97K+</p>
+                            </a>
+                        </div>
+                        <div class="single-touch-col">
+                            <a href="#!" class="single-touch youtube">
+                                <div class="touch-socail-icon">
+                                    <i class="icofont-youtube-play"></i>
+                                </div>
+                                <p class="touch-title">5,685K</p>
+                            </a>
+                        </div>
+                        <div class="single-touch-col">
+                            <a href="#!" class="single-touch dribbble">
+                                <div class="touch-socail-icon">
+                                    <i class="icofont-dribbble"></i>
+                                </div>
+                                <p class="touch-title">6,97K+</p>
+                            </a>
+                        </div>
+                        <div class="single-touch-col">
+                            <a href="#!" class="single-touch linkedin">
+                                <div class="touch-socail-icon">
+                                    <i class="icofont-linkedin"></i>
+                                </div>
+                                <p class="touch-title">6,97K+</p>
+                            </a>
+                        </div>
+                    </div>
+                </div> <!-- Stay In Touch Area End -->
+
             </div>
         </div>
+
     </div>
-</div>
-<!-- End Post Single Wrapper  -->
+</div> <!-- Blog Details Wrapper End -->
 
 
 
+
+
+@endsection
+
+
+@section('front_script')
+<script>
+    $(document).ready(function() {
+        $("#commentFrmSubmit").on('submit', function(e) {
+            e.preventDefault();
+            var formData = new FormData(this);
+
+            $.ajax({
+                url: "{{route('user.comment.submit')}}",
+                type: 'POST',
+                data: formData,
+                processData: false,
+                contentType: false,
+                success: function(response) {
+                    $("#commentFrmSubmit").trigger("reset");
+
+                    if (response.status === 'error') {
+                        $("#comment_response").html(`<div class="alert alert-danger">${response.message}</div>`);
+                    } else {
+                        $("#comment_response").html(`<div class="alert alert-success">${response.message}</div>`);
+                    }
+
+                    setTimeout(function() {
+                        window.location.reload();
+                    }, 2000);
+                }
+            });
+        })
+    });
+</script>
 @endsection

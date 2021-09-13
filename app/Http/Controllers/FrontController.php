@@ -14,11 +14,12 @@ class FrontController extends Controller
     public function index()
     {
 
-        $posts = Post::with('category', 'user')->where('status', 'publish')->orderBy('id', 'DESC')->limit(8)->get();
-        $gallery_post = Post::with('category', 'user')->where('status', 'publish')->inRandomOrder()->limit(4)->get();
-        $categories = Category::with('posts')->where('status', 'active')->orderBy('id', 'DESC')->limit(4)->get();
+        $postsGroups = Post::where('status', 'publish')->orderBy('id', 'DESC')->limit(12)->get()->splitIn(4);
+        // dd($postsGroups);
+        $gallery_post = Post::with('category', 'user')->where('status', 'publish')->inRandomOrder()->limit(2)->get();
+        $categories = Category::with('posts')->where('status', 'active')->orderBy('id', 'DESC')->get();
 
-        return view('frontend.home', compact(['posts', 'gallery_post', 'categories']));
+        return view('frontend.home', compact(['postsGroups', 'gallery_post', 'categories']));
     }
 
     public function blog_details(Request $request, Post $post)
@@ -33,7 +34,8 @@ class FrontController extends Controller
     public function comment_submit(Request $request)
     {
         $validator = Validator::make($request->all(), [
-            'comment_msg' => 'required|string|min:3|max:500'
+            'comment_msg' => 'required|string|min:3|max:500',
+            'post_id' => 'required'
         ]);
 
         $login_id = ($request->session()->get('ROLE') == 'editor') ? $request->session()->get('EDITOR_ID') : $request->session()->get('ADMIN_ID');
@@ -60,8 +62,7 @@ class FrontController extends Controller
     public function posts_by_category(Category $category)
     {
         $posts = Post::where(['category_id' => $category->id, 'status' => 'publish'])->get();
-        $gallery_post = Post::with('category', 'user')->where('status', 'publish')->inRandomOrder()->limit(4)->get();
-        return view('frontend.posts-by-category', compact(['posts', 'gallery_post']));
+        return view('frontend.posts-by-category', compact(['posts', 'category']));
     }
 
     public function post_all()
@@ -74,7 +75,13 @@ class FrontController extends Controller
     public function search_posts(Request $request)
     {
         $search_term = $request->get('search');
-        $posts = DB::table('posts')->join('categories', 'posts.category_id', '=', 'categories.id')->join('users', 'posts.user_id', '=', 'users.id')->select('posts.*', 'categories.category_name', 'categories.category_slug', 'users.name', 'users.avatar')->where('posts.post_title', 'like', "%$search_term%")->orWhere('posts.post_desc', 'like', "%$search_term%")->orWhere('categories.category_name', 'like', "%$search_term%")->get();
+        // $posts = DB::table('posts')->join('categories', 'posts.category_id', '=', 'categories.id')->join('users', 'posts.user_id', '=', 'users.id')->select('posts.*', 'categories.category_name', 'categories.category_slug', 'users.name', 'users.avatar')->where('posts.post_title', 'like', "%$search_term%")->orWhere('posts.post_desc', 'like', "%$search_term%")->orWhere('categories.category_name', 'like', "%$search_term%")->get();
+
+        $posts = Post::join('categories', 'posts.category_id', '=', 'categories.id')
+            ->where('posts.post_title', 'like', "%$search_term%")
+            ->orWhere('posts.post_desc', 'like', "%$search_term%")
+            ->orWhere('categories.category_name', 'like', "%$search_term%")->get();
+
         return view('frontend.post-search', compact(['posts']));
     }
 }

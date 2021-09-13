@@ -1,0 +1,22 @@
+.btn-close {
+    float: right !important;
+    padding: 5px !important;
+    height: 27px !important;
+    line-height: 12px !important;
+}
+
+.header-mid-right-side a {
+    font-size: 20px;
+}
+
+.header-mid-right-side a:hover {
+    color: #000;
+}
+
+.hero-banner-area a img {
+    max-width: 400px;
+}
+
+/* .blog-details-col-8 {
+    max-width: 800px ;
+} */

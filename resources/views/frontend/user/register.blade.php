@@ -1,35 +1,45 @@
 @extends('frontend.layouts.master')
 
-@section('content')
-<!-- Start Banner Area  -->
-<div class="axil-banner banner-style-1 bg_image bg_image--3">
+@section('breadcrumb')
+<!-- breadcrumb-area start -->
+<div class="breadcrumb-area">
     <div class="container">
         <div class="row">
-            <div class="col-lg-12">
-                <div class="inner">
-                    <h1 class="title">Register</h1>
-                    <p class="description">Wherever &#38; whenever you need us. We are here for you – contact us for all your support needs.<br /> be it technical, general queries or information support.</p>
+            <div class="col-12">
+                <div class="breadcrumb_box text-center">
+                    <!-- <h2 class="breadcrumb-title">@@title</h2> -->
+                    <!-- breadcrumb-list start -->
+                    <ul class="breadcrumb-list">
+                        <li class="breadcrumb-item"><a href="{{url('/')}}">Home</a></li>
+                        <li class="breadcrumb-item active">Register</li>
+                    </ul>
+                    <!-- breadcrumb-list end -->
                 </div>
             </div>
         </div>
     </div>
 </div>
-<!-- End Banner Area  -->
-<!-- Start Post List Wrapper  -->
-<div class="axil-post-list-area axil-section-gap bg-color-white">
+<!-- breadcrumb-area end -->
+@endsection
+
+
+
+@section('content')
+<div class="login-register-page-area section-space--ptb_80">
     <div class="container">
-        <div class="row">
-            <div class="col-lg-8 col-xl-8 offset-xl-2 offset-lg-2">
-                <!-- Start About Area  -->
-                <div class="axil-about-us">
+        <div class="row ">
+            <div class="col-lg-6 m-auto">
+                <div class="login-content">
+
+                    <div class="login-header mb-40">
+                        <h3 class="mb-2">Register</h3>
+                        <h5>Become a member</h5>
+                    </div>
 
                     <div class="">
                         @if(session('msg'))
                         <div class="alert alert-{{session('type') == 'error' ? 'danger' : 'success'}}">
                             {{session('msg')}}
-                            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                                <span aria-hidden="true">&times;</span>
-                            </button>
                         </div>
                         @endif
                     </div>
@@ -45,45 +55,23 @@
                         @endif
                     </div>
 
-                    <!-- Start Contact Form  -->
-                    <div class="axil-section-gapTop axil-contact-form-area">
-                        <h4 class="title mb--10">Register with us</h4>
-                        <p class="b3 mb--30">Your email address will not be published. All the fields are required.</p>
-                        <form method="POST" action="{{route('user-register-submit')}}" class="axil-contact-form contact-form--1 row">
-                            @csrf
-                            <div class="col-lg-12 col-md-12 col-12">
-                                <div class="form-group">
-                                    <label for="contact-name">Your Name</label>
-                                    <input type="text" id="name" name="name" required value="{{old('name')}}">
-                                </div>
-                            </div>
 
-                            <div class="col-lg-12 col-md-12 col-12">
-                                <div class="form-group">
-                                    <label for="email">Your Email</label>
-                                    <input type="email" id="email" name="email" required value="{{old('email')}}">
-                                </div>
-                            </div>
-                            <div class="col-12">
-                                <div class="form-group">
-                                    <label for="password">Password</label>
-                                    <input type="password" id="password" name="password" required autocomplete="off">
-                                </div>
-                            </div>
-                            <div class="col-12">
-                                <div class="form-submit">
-                                    <button name="submit" type="submit" id="submit" class="axil-button button-rounded btn-primary">Submit</button>
-                                </div>
-                            </div>
-                        </form>
-                    </div>
-                    <!-- End Contact Form  -->
+                    <form method="POST" action="{{route('user-register-submit')}}">
+                        @csrf
+                        <input placeholder="Enter Name" type="text" id="name" name="name" required value="{{old('name')}}">
+                        <input placeholder="Enter Email" type="email" id="email" name="email" value="{{old('email')}}" required>
+                        <input placeholder="Enter Password" type="password" id="password" name="password" autocomplete="off" required>
+
+
+                        <button type="submit" class="btn-primary btn-large">Register Now</button>
+                        <div class="member-register mt-5">
+                            <p> A member? <a href="{{route('user-login')}}"> Log in now</a></p>
+                        </div>
+                    </form>
+
                 </div>
-                <!-- End About Area  -->
             </div>
-
         </div>
     </div>
 </div>
-<!-- End Post List Wrapper  -->
 @endsection

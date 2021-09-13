@@ -11,6 +11,12 @@ function userDetails($user_id)
 
 function categories()
 {
-    $menu_cats = DB::table('categories')->where('status', 'active')->limit(5)->orderBy('id', 'DESC')->get();
+    $menu_cats = DB::table('categories')->where('status', 'active')->limit(4)->orderBy('id', 'DESC')->get();
+    return $menu_cats;
+}
+
+function categoriesTop($limit)
+{
+    $menu_cats = DB::table('categories')->where('status', 'active')->limit($limit)->orderBy('id', 'DESC')->get();
     return $menu_cats;
 }
