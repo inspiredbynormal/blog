@@ -1,22 +1,15 @@
-.btn-close {
-    float: right !important;
-    padding: 5px !important;
-    height: 27px !important;
-    line-height: 12px !important;
-}
-
-.header-mid-right-side a {
-    font-size: 20px;
-}
-
-.header-mid-right-side a:hover {
+.page-item.active .page-link {
+    z-index: 1;
     color: #000;
+    background-color: #fee86d;
+    border-color: #fee86d;
 }
 
-.hero-banner-area a img {
-    max-width: 400px;
+.page-link {
+    color: #000000;
 }
 
-/* .blog-details-col-8 {
-    max-width: 800px ;
-} */
+.load-posts {
+    display: flex;
+    justify-content: center;
+}

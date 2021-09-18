@@ -36,7 +36,7 @@
                                 </tr>
                             </thead>
                             <tbody>
-                            @php
+                                @php
                                 $i = 1;
                                 @endphp
                                 @forelse($posts as $post)
@@ -45,7 +45,7 @@
                                     <td>{{$post->post_title}}</td>
                                     <td>{{$post->category->category_name}}</td>
                                     <td><img src="{{($post->post_image != NULL) ? asset('storage/media/post/'. $post->post_image) : '' }}" alt="" class="img-fluid list-image"></td>
-                                    <td>{{$post->status}}</td>
+                                    <td><span class="badge {{($post->status == 'publish') ?  'badge-success' : 'badge-danger'}}">{{$post->status}}</span></td>
                                     <td>
                                         <div class="action_btn_box">
                                             <a href="{{route('admin.post.edit', [$post->id])}}" class="btn bg-gradient-primary btn-sm"><i class="fas fa-edit"></i></a>

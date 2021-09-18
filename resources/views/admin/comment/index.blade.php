@@ -44,7 +44,7 @@
                                     <td>{{$comment->comment_msg}}</td>
                                     <td>{{$comment->user->name}}</td>
                                     <td>{{Str::limit($comment->post->post_title, 25)}}</td>
-                                    <td>{{$comment->status}}</td>
+                                    <td><span class="badge {{($comment->status == 'active') ?  'badge-success' : 'badge-danger'}}">{{$comment->status}}</span></td>
 
                                     <td>
                                         <div class="action_btn_box">

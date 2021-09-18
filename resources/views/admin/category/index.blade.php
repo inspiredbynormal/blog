@@ -44,7 +44,7 @@
                                     <td>{{$i}}</td>
                                     <td>{{$category->category_name}}</td>
                                     <td><img src="{{($category->category_image != NULL) ? asset('storage/media/category/'. $category->category_image) : '' }}" alt="" class="img-fluid list-image"></td>
-                                    <td>{{$category->status}}</td>
+                                    <td><span class="badge {{($category->status == 'active') ?  'badge-success' : 'badge-danger'}}">{{$category->status}}</span></td>
                                     <td>
                                         <div class="action_btn_box">
                                             <a href="{{route('admin.category.edit', [$category->id])}}" class="btn bg-gradient-primary btn-sm"><i class="fas fa-edit"></i></a>

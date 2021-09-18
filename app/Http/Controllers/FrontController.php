@@ -14,12 +14,13 @@ class FrontController extends Controller
     public function index()
     {
 
-        $postsGroups = Post::where('status', 'publish')->orderBy('id', 'DESC')->limit(12)->get()->splitIn(4);
+        // $postsGroups = Post::where('status', 'publish')->orderBy('id', 'DESC')->limit(12)->get()->splitIn(4);
+        $posts = Post::where('status', 'publish')->orderBy('id', 'DESC')->limit(12)->get();
         // dd($postsGroups);
-        $gallery_post = Post::with('category', 'user')->where('status', 'publish')->inRandomOrder()->limit(2)->get();
+        $gallery_post = Post::with('category', 'user')->where('status', 'publish')->inRandomOrder()->limit(4)->get();
         $categories = Category::with('posts')->where('status', 'active')->orderBy('id', 'DESC')->get();
 
-        return view('frontend.home', compact(['postsGroups', 'gallery_post', 'categories']));
+        return view('frontend.home', compact(['posts', 'gallery_post', 'categories']));
     }
 
     public function blog_details(Request $request, Post $post)
@@ -28,7 +29,9 @@ class FrontController extends Controller
 
         $categories = Category::with('posts')->where('status', 'active')->orderBy('id', 'DESC')->limit(4)->get();
 
-        return view('frontend.blog-details', compact(['post', 'related_posts', 'categories']));
+        $comments = Comment::where('post_id', $post->id)->where('status', 'active')->orderBy('id', 'DESC')->get();
+
+        return view('frontend.blog-details', compact(['post', 'related_posts', 'categories', 'comments']));
     }
 
     public function comment_submit(Request $request)
@@ -61,7 +64,7 @@ class FrontController extends Controller
 
     public function posts_by_category(Category $category)
     {
-        $posts = Post::where(['category_id' => $category->id, 'status' => 'publish'])->get();
+        $posts = Post::where(['category_id' => $category->id, 'status' => 'publish'])->Paginate(8);
         return view('frontend.posts-by-category', compact(['posts', 'category']));
     }
 
@@ -82,6 +85,6 @@ class FrontController extends Controller
             ->orWhere('posts.post_desc', 'like', "%$search_term%")
             ->orWhere('categories.category_name', 'like', "%$search_term%")->get();
 
-        return view('frontend.post-search', compact(['posts']));
+        return view('frontend.post-search', compact(['posts', 'search_term']));
     }
 }

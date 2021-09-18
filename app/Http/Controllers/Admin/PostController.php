@@ -48,8 +48,8 @@ class PostController extends Controller
     {
         $request->validate([
             'post_title' => 'required|string|max:200|min:3|unique:posts,post_title',
-            'post_desc' => 'required|string|max:5000|min:100',
-            'post_short_desc' => 'required|string|max:300|min:10',
+            'post_desc' => 'required|string|max:15000|min:100',
+            'post_short_desc' => 'required|string|max:600|min:10',
             'post_image' => 'mimes:jpeg,jpg,png|max:1024',
             'post_category' => 'required',
         ]);
@@ -123,8 +123,8 @@ class PostController extends Controller
 
         $request->validate([
             'post_title' => "required|string|max:200|min:3|unique:posts,post_title, $post->id",
-            'post_desc' => 'required|string|max:5000|min:100',
-            'post_short_desc' => 'required|string|max:300|min:10',
+            'post_desc' => 'required|string|max:15000|min:100',
+            'post_short_desc' => 'required|string|max:600|min:10',
             'post_image' => 'mimes:jpeg,jpg,png|max:1024',
             'post_category' => 'required',
         ]);

@@ -1,34 +1,57 @@
 @extends('frontend.layouts.master')
 
 @section('content')
-<!-- Blog Details Wrapper Start -->
-<div class="blog-details-wrapper section-space--ptb_80">
+
+<!-- Categorie-->
+<section class="categorie-section  mt-90">
     <div class="container">
-        <div class="row row--17">
+        <div class="row">
+            <div class="col-lg-8 text-center m-auto">
+                <div class="categorie-title">
+
+                    <small>
+                        <a href="{{url('/')}}">Home</a>
+                        <span class="arrow_carrot-right"></span> Categories
+                    </small>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Posts-->
+<section class="mb-70">
+    <div class="container">
+        <div class="row">
             @forelse($categories as $category)
-            <div class="col-lg-4 col-md-6 col-sm-6">
-                <!-- Single Following Post Start -->
-                <div class="single-following-post" data-aos="fade-up">
-                    <a href="{{route('front.posts-by-category', $category->category_slug)}}" class="following-post-thum">
-                        <img src="{{asset('storage/media/category/'. $category->category_image)}}" alt="">
-                    </a>
-                    <div class="following-post-content">
-                        <h5 class="following-blog-post-title">
-                            <a href="{{route('front.posts-by-category', $category->category_slug)}}">{{$category->category_name}}
-                            </a>
-                        </h5>
+            <div class="col-lg-3 col-md-4">
+                <!--Post-1-->
+                <div class="post-round">
+                    <div class="image">
+                        <a href="{{route('front.posts-by-category', $category->category_slug)}}">
+                            <img src="{{asset('storage/media/category/'. $category->category_image)}}" alt="">
+                        </a>
                     </div>
-                </div><!-- Single Following Post End -->
+                    <div class="content">
+                        <a href="{{route('front.posts-by-category', $category->category_slug)}}l" class="categorie">
+                            <i class="icon_circle-slelected"></i>{{$category->category_name}}
+                        </a>
+
+
+                    </div>
+                </div>
+                <!--/-->
             </div>
             @empty
             <div class="col-12">
-                <h2>No Posts Found</h2>
+                <h6>No category Found</h6>
             </div>
             @endforelse
+
         </div>
+
     </div>
-</div> <!-- Blog Details Wrapper End -->
-
-
+</section>
 
 @endsection

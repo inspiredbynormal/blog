@@ -2,188 +2,121 @@
 
 @section('content')
 
-<!-- Hero Area Start -->
-<div class="hero-area">
-    <div class="container">
-        <div class="row">
-            <div class="col-lg-12">
-                <div class="hero-inner-area">
-                    <!-- Hero Category Area Start -->
-                    <div class="hero-category-area">
-                        @php
-                        $menu_cats = categories();
-                        @endphp
-                        @forelse($menu_cats as $cat)
-                        <a href="{{route('front.posts-by-category', $cat->category_slug)}}" class="single-hero-category-item" data-aos="fade-up">
-                            <img src="{{asset('storage/media/category/'. $cat->category_image)}}" alt="">
-                            <div class="hero-category-inner-box">
-                                <h3 class="title">{{$cat->category_name}}</h3>
-                                <i class="icon icofont-long-arrow-right"></i>
-                            </div>
-                        </a>
-                        @empty
-                        @endforelse
-                    </div><!-- Hero Category Area End -->
-
-                    <!-- Hero Banner Area Start -->
-                    <div class="hero-banner-area" data-aos="fade-up">
-                        @forelse($gallery_post as $post)
-                        <a class="mt-3" href="{{route('front.blog-details', [$post->post_slug])}}">
+<!--hero-->
+<section class="hero hero-2 hero-carousel d-flex align-items-center">
+    <div class="container ">
+        <div class="owl-carousel">
+            @forelse($gallery_post as $post)
+            <div class="row d-flex align-items-center">
+                <div class="col-lg-5">
+                    <div class="image">
+                        <a href="{{route('front.blog-details', [$post->post_slug])}}">
                             <img src="{{asset('storage/media/post/'. $post->post_image)}}" alt="">
                         </a>
-                        @empty
-                        @endforelse
-                    </div>
-                    <!-- Hero Banner Area End -->
-
-                    <div class="hero-blog-post">
-                        @forelse($gallery_post as $post)
-                        <!-- Single-hero-blog-post Start -->
-                        <div class="single-hero-blog-post" data-aos="fade-up">
-                            <div class="hero-blog-post-top">
-                                <div class="hero-blog-post-category">
-                                    <a href="{{route('front.posts-by-category', $post->category->category_slug)}}" class="marketing">{{$post->category->category_name}}</a>
-                                </div>
-                                <div class="hero-blog-post-author">
-                                    By <a href="#">{{$post->user->name}}</a>
-                                </div>
-                            </div>
-                            <h3 class="hero-blog-post-title">
-                                <a href="{{route('front.blog-details', [$post->post_slug])}}">{{Str::limit($post->post_title, 45)}}
-                                </a>
-                            </h3>
-                            <p class="post-short-details">
-                                {{Str::limit($post->post_short_desc, 60)}}
-                            </p>
-                            <div class="hero-blog-post-meta">
-                                <div class="post-meta-left-side">
-                                    <span class="post-date">
-                                        <i class="icofont-ui-calendar"></i>
-                                        <a href="#">{{ Carbon\Carbon::parse($post->created_at)->diffForHumans() }}</a>
-                                    </span>
-                                </div>
-                                <div class="post-meta-right-side">
-                                    <a href="#"><img src="{{asset('front_assets/images/icons/small-bookmark.png')}}" alt="" /></a>
-                                    <a href="#"><img src="{{asset('front_assets/images/icons/heart.png')}}" alt="" /></a>
-                                </div>
-                            </div>
-                        </div><!-- Single-hero-blog-post End -->
-                        @empty
-                        @endforelse
                     </div>
                 </div>
-
-            </div>
-        </div>
-    </div>
-</div> <!-- Hero Area End -->
-
-
-<div class="bg-gray-1">
-    <!-- Trending Topic Area Start -->
-    <div class="trending-topic-area section-space--ptb_80">
-        <div class="container">
-            <div class="row align-items-center">
-                <div class="trending-topic-section-title">
-                    <h3>Trending Topic</h3>
-                    <div class="trending-topic-navigation mt-30">
-                        <div class="trending-topic-button-prev navigation-button"><i class="icofont-long-arrow-left"></i></div>
-                        <div class="trending-topic-button-next navigation-button"><i class="icofont-long-arrow-right"></i></div>
-                    </div>
-                </div>
-                <div class="trending-topic-item-wrap">
-                    <div class="swiper-container trending-topic-slider-active">
-                        <div class="swiper-wrapper">
-                            @forelse($categories as $category)
-                            <div class="swiper-slide" data-aos="fade-up">
-                                <div class="single-trending-topic-item">
-                                    <a href="{{route('front.posts-by-category', $category->category_slug)}}">
-                                        <img src="{{asset('storage/media/category/'. $category->category_image)}}" alt="">
-                                        <h4 class="title">{{$category->category_name}}</h4>
+                <div class="col-lg-7">
+                    <div class="post">
+                        <a href="{{route('front.posts-by-category', $post->category->category_slug)}}" class="categorie">
+                            <i class="icon_circle-slelected"></i>{{$post->category->category_name}}
+                        </a>
+                        <h3>
+                            <a href="{{route('front.blog-details', [$post->post_slug])}}">{{Str::limit($post->post_title, 100)}}</a>
+                        </h3>
+                        <p>{{Str::limit($post->post_short_desc, 100)}}</p>
+                        <div class="info">
+                            <ul class="list-inline">
+                                <li>
+                                    <a href="#">
+                                        <img src="{{ ($post->user->avatar == NULL) ? asset('front_assets/img/user/no-user-image.jpg') : asset('storage/media/user/'. $post->user->avatar)}}" alt="">
                                     </a>
-                                </div>
-                            </div>
-                            @empty
-                            @endforelse
+                                </li>
+                                <li>
+                                    <a href="#">{{$post->user->name}}</a>
+                                </li>
+                                <li class="dot"></li>
+                                <li>{{ Carbon\Carbon::parse($post->created_at)->diffForHumans() }}</li>
+                                <!-- <li class="dot"></li> -->
+                                <!-- <li>5 min Read</li> -->
+                            </ul>
                         </div>
                     </div>
                 </div>
             </div>
-
+            @empty
+            <div class="row d-flex align-items-center">
+                <div class="col-12">
+                    No Posts found
+                </div>
+            </div>
+            @endforelse
         </div>
     </div>
-    <!-- Trending Topic Area End -->
-</div>
+</section>
 
-
-<!-- Recent Reading List Area Start -->
-<div class="recent-reading-list-area section-space--pb_80">
+<!--categories-->
+<div class="categorie-section pt-60">
     <div class="container">
         <div class="row">
             <div class="col-lg-12">
-                <div class="recent-reading-header">
-                    <div class="section-title">
-                        <h3>Recent Reading List</h3>
-                    </div>
-                    <div class="recent-reading-slider-navigation mt-2 mb-2">
-                        <div class="recent-reading-button-prev navigation-button"><i class="icofont-long-arrow-left"></i></div>
-                        <div class="recent-reading-button-next navigation-button"><i class="icofont-long-arrow-right"></i></div>
-                    </div>
-
-                </div>
-            </div>
-        </div>
-        <div class="swiper-container recent-reading-slider-active">
-            <div class="swiper-wrapper">
-                @forelse($postsGroups as $postGroup)
-                <div class="swiper-slide">
-                    @forelse($postGroup as $key => $post)
-                    <!-- Single Recent Reading Post Start -->
-                    <div class="single-recent-reading-post" data-aos="fade-up">
-                        <a class="recent-reading-post-thum" href="{{route('front.blog-details', [$post->post_slug])}}">
-                            <img src="{{asset('storage/media/post/'. $post->post_image)}}" alt="">
+                <ul class="cat-list">
+                    @forelse($categories as $category)
+                    <li>
+                        <a class="item" href="{{route('front.posts-by-category', $category->category_slug)}}">
+                            <div class="image">
+                                <img src="{{asset('storage/media/category/'. $category->category_image)}}" alt="">
+                            </div>
+                            <p>{{$category->category_name}}</p>
                         </a>
-                        <div class="recent-reading-post-content">
-                            <div class="recent-reading-post-author">
-                                By <a href="#">{{$post->user->name}}</a>
-                            </div>
-                            <h6 class="title"><a href="{{route('front.blog-details', [$post->post_slug])}}">{{Str::limit($post->post_title,40)}}</a></h6>
-                            <div class="recent-reading-post-meta">
-                                <span class="post-date">
-                                    <i class="icofont-ui-calendar"></i>
-                                    <a href="#">{{ Carbon\Carbon::parse($post->created_at)->toDayDateTimeString() }}</a>
-                                </span>
-                                <!-- <span>10 min read</span> -->
-                            </div>
-                        </div>
-                    </div>
-                    <!-- Single Recent Reading Post End -->
+                    </li>
                     @empty
                     @endforelse
-                </div>
-                @empty
-                @endforelse
+
+                </ul>
             </div>
         </div>
-
     </div>
 </div>
-<!-- Recent Reading List Area End -->
 
-<!-- Bottom Add Banner Area Start -->
-<div class="bottom-add-banner-area section-space--pb_80">
+<!--Posts-->
+<section class="section mt-50 mb-70">
     <div class="container">
         <div class="row">
-            <div class="col-lg-12">
-                <a href="#" class="bottom-add-banner-box" data-aos="fade-up">
-                    <img src="{{asset('front_assets/images/banners/bottom-add-banner.jpg')}}" alt="">
-                    <h6 class="bottom-add-text">Advertisement Section
-                        <!-- <span>50% Off</span> -->
-                    </h6>
-                </a>
+            @forelse($posts as $post)
+            <div class="col-lg-6">
+                <div class="post-box">
+                    <div class="image">
+                        <a href="{{route('front.blog-details', [$post->post_slug])}}">
+                            <img src="{{asset('storage/media/post/'. $post->post_image)}}" alt="">
+                        </a>
+                    </div>
+                    <div class="content">
+                        <a href="{{route('front.posts-by-category', $post->category->category_slug)}}" class="categorie">
+                            <i class="icon_circle-slelected"></i>{{$post->category->category_name}}
+                        </a>
+                        <h5>
+                            <a href="{{route('front.blog-details', [$post->post_slug])}}">{{Str::limit($post->post_title, 50)}}</a>
+                        </h5>
+
+                        <div class="meta">
+                            <ul class="list-inline">
+
+                                <li>
+                                    <a href="#">{{$post->user->name}}</a>
+                                </li>
+                                <li class="dot"></li>
+                                <li>{{ Carbon\Carbon::parse($post->created_at)->diffForHumans() }}</li>
+
+                            </ul>
+                        </div>
+                    </div>
+                </div>
             </div>
+            @empty
+            @endforelse
         </div>
     </div>
-</div> <!-- Bottom Add Banner Area End -->
+</section>
+
 
 @endsection

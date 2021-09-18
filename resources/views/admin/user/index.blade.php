@@ -47,7 +47,7 @@
                                     <td>{{$user->email}}</td>
                                     <td>{{$user->role}}</td>
                                     <td><img src="{{($user->avatar != NULL) ? asset('storage/media/user/'. $user->avatar) : '' }}" alt="" class="img-fluid list-image"></td>
-                                    <td>{{$user->status}}</td>
+                                    <td><span class="badge {{($user->status == 'active') ?  'badge-success' : 'badge-danger'}}">{{$user->status}}</span></td>
                                     <td>
                                         <div class="action_btn_box">
                                             <a href="{{route('admin.user.edit', [$user->id])}}" class="btn bg-gradient-primary btn-sm"><i class="fas fa-edit"></i></a>
